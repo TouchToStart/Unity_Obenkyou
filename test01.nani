@@ -1,0 +1,247 @@
+유니티-나니노벨 공부&참고용 스크립트
+
+*앞부분 쪽에 예시로 gpt 돌린거 있는데 그건 오류 부분 있을수도
+
+나니노벨 공식 홈페이지 링크
+https://naninovel.com/guide/
+
+나니노벨 커맨드 링크
+https://naninovel.com/api/
+
+유니티 <글자/태그> 목록
+https://docs.unity3d.com/Packages/com.unity.textmeshpro@4.0/manual/RichText.html
+
+; ---------------------------------------------------------
+
+선택지 예시
+
+@choice "Continue from the next line"
+@choice "Continue from the specified label" goto:.Labelname
+@choice "Load another from start" goto:AnotherScript
+@choice "Load another from label" goto:AnotherScript.LabelName
+; 선택지 뒤에는 stop
+@stop
+
+; ---------------------------------------------------------
+
+조건에 따라 선택지를 숨기는 방법 (→ @if, @hideChoice, @showChoice 사용)
+
+@set hasKey = true
+
+Akane: 열쇠가 있어야 문을 열 수 있어요.
+
+@choice "문을 연다" if:hasKey
+@choice "돌아간다"
+; hasKey == true면 "문을 연다" 선택지가 보임
+; 아니면 "돌아간다"만 나옴
+
+; 반대로 조건이 false일 때만 보이게
+@choice "문을 연다" if:hasKey
+@choice "문을 억지로 연다" if:!hasKey
+
+; @hideChoice 사용 예시   이 선택지는 숨김 처리됨 (비활성화됨)
+@choice "비밀 선택지" hideChoice:true if:!debugMode
+
+; ---------------------------------------------------------
+
+변수에 따라 자동 분기
+
+@set mood = "happy"
+
+@if mood == "happy"
+    @goto:.happyScene
+@elseif mood == "angry"
+    @goto:.angryScene
+@else
+    @goto:.neutralScene
+
+# happyScene
+A: 나는 행복해!
+
+# angryScene
+A: 화가 나!
+
+# neutralScene
+A: 감정이 없어...
+
+; ---------------------------------------------------------
+
+변수 수치 비교도 가능
+
+@set courage = 5
+
+@if courage >= 10
+    @goto:.heroEnding
+@else
+    @goto:.cowardEnding
+
+| 명령어               | 설명
+| `@set myVar = true` | 변수 생성 및 값 설정
+| `@set score = 5`    | 숫자형 변수
+| `@if myVar`         | 조건이 true일 때
+| `@if score > 10`    | 숫자 비교 가능
+| `@goto:.label`      | 특정 라벨로 이동
+| `@jump:.label`      | 거의 동일하나 약간 빠름 (스크립트 캐싱상)
+
+; ---------------------------------------------------------
+
+변수 타입
+@set name = "Akane"        ; 문자열
+@set level = 3             ; 숫자 (정수)
+@set health = 73.5         ; 실수 (소수점 있으면 float)
+@set hasItem = false       ; 불리언
+
+; ---------------------------------------------------------
+
+조건에 따라 선택 숨기기 + 자동 분기
+@set choiceUnlocked = false
+
+A: 당신은 어느 길을 갈 것입니까?
+
+@choice "왼쪽 길" goto:.left
+@choice "오른쪽 길 (비밀)" if:choiceUnlocked goto:.right
+
+@stop
+
+# left
+A: 왼쪽으로 갔습니다.
+@goto:.ending
+
+# right
+A: 오른쪽 비밀길로 갔습니다.
+@goto:.ending
+
+# ending
+A: 여행은 끝났습니다.
+
+
+; ---------------------------------------------------------
+
+변수 사용 방법 {} 로 출력
+Akane: 안녕하세요, {playerName}님!
+
+조건분기 예시1
+@if hasKey
+A: 당신은 문을 열 수 있습니다!
+@else
+A: 열쇠가 필요합니다.
+
+조건분기 예시2
+@if health >= 100
+A: 체력이 꽉 찼군요!
+
+특정 변수 초기화
+@set hasKey = false
+@set health = 100
+
+모든 변수 초기화 (테스트용)
+@resetState
+
+; ---------------------------------------------------------
+
+; @set 은 동적으로도 사용됨
+
+기본적인 @set 예시 (정적)
+@set score = 10
+@set playerName = "Akane"
+
+동적으로 사용되는 @set 예시 (현재 값에 연산해서 동적으로 계산 가능)
+@set score = score + 5
+@set favor_Jisoo = favor_Jisoo - 1
+
+문자열 결합 (string concatenation) (변수끼리 문자열을 붙여서 새 변수 생성 가능)
+@set fullName = playerFirstName + " " + playerLastName
+
+조건문에 쓰일 boolean 설정 (favor_Jisoo가 80 이상이면 true, 아니면 false.)
+@set isGoodEnd = favor_Jisoo >= 80
+
+선택지 연동 (분기 + 변수 설정)
+@choice "선택" @set flag = true
+
+; ---------------------------------------------------------
+
+조건분기
+
+; If `level` value is a number and is greater than 9000, add the choice.
+@choice "It's over 9000!" if:level>9000
+
+; If `dead` variable is a false boolean, execute the print command.
+@print "I'm still alive." if:!dead
+
+; If `glitch` is a true boolean or random function in 1 to 10 range
+; returns 5 or more, execute `@spawn` command.
+@spawn GlitchCamera if:{ glitch || Random(1, 10) >= 5 }
+
+; If `score` value is in 7 to 13 range or `lucky` variable
+; is a true boolean, load `LuckyEnd` script.
+@goto LuckyEnd if:{ (score >= 7 && score <= 13) || lucky }
+
+; You can also use conditionals in the inlined commands.
+Lorem sit amet. [style bold if:score>=10]Consectetur elit.[style default]
+
+; When using double quotes inside the expression itself,
+; don't forget to escape them.
+@print {remark} if:remark=="Saying \"Stop the car\" was a mistake."
+
+; ____________________________________________________________
+
+! 여기서 부터는 직접 헤딩한 부분들 !
+
+대사창 종류
+@printer Dialogue
+; 풀스크린일때 @resetText 로 페이지 넘길 수 있음
+@printer Fullscreen
+@printer Wide
+@printer Chat
+@printer Bubble
+
+배경화면
+@back eki
+
+캐릭터 이름 위치:x,y  <- 왼쪽 아래 0,0 부터 오른쪽 위 100,100
+@char Akane pos:48,0
+
+; ---------------------------------------------------------
+
+글자 문법들 html 문법인듯
+
+;줄 바꿈
+<br>
+
+;사이즈 조절, 색상 코드, 이테릭체, 볼드
+<size=200%><color=#FFFA8A><i><b>'아테네 학원'</b></i></color></size>
+
+;이 씹덕 감성 넘치는 글자를 루비라 하네 
+전국 <ruby="최강">최고</ruby>의 고등학생이 모이는 이곳이 바로 
+
+; 사이즈 조절 이어서
+<size=200%>공부하라, 지성의 아이들아!
+<size=300%>토론하라, 지혜의 씨앗들이여!</size>
+
+; ---------------------------------------------------------
+
+; 캐릭터 대사
+Akane: hello world!
+Akane: 쥰내 어렵디
+Akane: 앙 sasd
+
+; 선택지 명령어
+@choice 선택지1 goto:.test001
+@choice 선택지2 goto:.test002
+@stop
+
+; #은 라벨
+# test001
+A: 앙 기모링~ 
+@goto .test003
+
+# test002
+A: 키모이...
+@goto .test003
+
+# test003
+제가 이걸 다 누려도 될까요?
+
+@stop
+
+;_________________________________25.07.14_________________________________
