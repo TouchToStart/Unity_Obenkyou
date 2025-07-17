@@ -1,390 +1,422 @@
-; 개발일지 겸 유니티-나니노벨 공부&참고용 스크립트
+개발일지 겸 유니티-나니노벨 공부&참고용 스크립트
 
-; 07.10
-; hello world!
-; 쥰내 어렵디
-; 앙 sasd
+07.10
+hello world!
+쥰내 어렵디
+앙 sasd
 
-; 유니티 w 된거 같은데?
-; 엄
-; 한글폰트가 안나온다 
+유니티 w 된거 같은데?
+엄
+한글폰트가 안나온다 
 
-; 프로젝트 만들고 에셋폴더 생성하고
-; vscode 연동하고 확장팩 설치함
+프로젝트 만들고 에셋폴더 생성하고
+vscode 연동하고 확장팩 설치함
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 07.11
-; 한글폰트 드디어 해결함
-; 이 w 같은 TMP 속에 숨겨져 있었음
+07.11
+한글폰트 드디어 해결함
+이 w 같은 TMP 속에 숨겨져 있었음
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 07.14
-; 드디어 일주일 만에 뭔가를 만듬
-; 젠장 또 해내버렸잖아
-; 공부한거 깃허브에 올려야겠어
+07.14
+드디어 일주일 만에 뭔가를 만듬
+젠장 또 해내버렸잖아
+공부한거 깃허브에 올려야겠어
 
-; *앞부분 쪽에 예시로 gpt 돌린거 있는데 그건 오류 부분 있을수도
+*앞부분 쪽에 예시로 gpt 돌린거 있는데 그건 오류 부분 있을수도
 
-; 나니노벨 공식 홈페이지 링크
-; https://naninovel.com/guide/
+나니노벨 공식 홈페이지 링크
+https://naninovel.com/guide/
 
-; 나니노벨 커맨드 링크
-; https://naninovel.com/api/
+나니노벨 커맨드 링크
+https://naninovel.com/api/
 
-; 유니티 <글자/태그> 목록
-; https://docs.unity3d.com/Packages/com.unity.textmeshpro@4.0/manual/RichText.html
+유니티 <글자/태그> 목록
+https://docs.unity3d.com/Packages/com.unity.textmeshpro@4.0/manual/RichText.html
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 선택지 예시
+선택지 예시
 
-; @choice "Continue from the next line"
-; @choice "Continue from the specified label" goto:.Labelname
-; @choice "Load another from start" goto:AnotherScript
-; @choice "Load another from label" goto:AnotherScript.LabelName
-; ; 선택지 뒤에는 stop
-; @stop
+@choice "Continue from the next line"
+@choice "Continue from the specified label" goto:.Labelname
+@choice "Load another from start" goto:AnotherScript
+@choice "Load another from label" goto:AnotherScript.LabelName
+; 선택지 뒤에는 stop
+@stop
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 조건에 따라 선택지를 숨기는 방법 (→ @if, @hideChoice, @showChoice 사용)
+조건에 따라 선택지를 숨기는 방법 (→ @if, @hideChoice, @showChoice 사용)
 
-; @set hasKey = true
+@set hasKey = true
 
-; Akane: 열쇠가 있어야 문을 열 수 있어요.
+Akane: 열쇠가 있어야 문을 열 수 있어요.
 
-; @choice "문을 연다" if:hasKey
-; @choice "돌아간다"
-; ; hasKey == true면 "문을 연다" 선택지가 보임
-; ; 아니면 "돌아간다"만 나옴
+@choice "문을 연다" if:hasKey
+@choice "돌아간다"
+; hasKey == true면 "문을 연다" 선택지가 보임
+; 아니면 "돌아간다"만 나옴
 
-; ; 반대로 조건이 false일 때만 보이게
-; @choice "문을 연다" if:hasKey
-; @choice "문을 억지로 연다" if:!hasKey
+; 반대로 조건이 false일 때만 보이게
+@choice "문을 연다" if:hasKey
+@choice "문을 억지로 연다" if:!hasKey
 
-; ; @hideChoice 사용 예시   이 선택지는 숨김 처리됨 (비활성화됨)
-; @choice "비밀 선택지" hideChoice:true if:!debugMode
+; @hideChoice 사용 예시   이 선택지는 숨김 처리됨 (비활성화됨)
+@choice "비밀 선택지" hideChoice:true if:!debugMode
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 변수에 따라 자동 분기
+변수에 따라 자동 분기
 
-; @set mood = "happy"
+@set mood = "happy"
 
-; @if mood == "happy"
-;     @goto:.happyScene
-; @elseif mood == "angry"
-;     @goto:.angryScene
-; @else
-;     @goto:.neutralScene
+@if mood == "happy"
+    @goto:.happyScene
+@elseif mood == "angry"
+    @goto:.angryScene
+@else
+    @goto:.neutralScene
 
-; # happyScene
-; A: 나는 행복해!
+# happyScene
+A: 나는 행복해!
 
-; # angryScene
-; A: 화가 나!
+# angryScene
+A: 화가 나!
 
-; # neutralScene
-; A: 감정이 없어...
+# neutralScene
+A: 감정이 없어...
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 변수 수치 비교도 가능
+변수 수치 비교도 가능
 
-; @set courage = 5
+@set courage = 5
 
-; @if courage >= 10
-;     @goto:.heroEnding
-; @else
-;     @goto:.cowardEnding
+@if courage >= 10
+    @goto:.heroEnding
+@else
+    @goto:.cowardEnding
 
-; | 명령어               | 설명
-; | `@set myVar = true` | 변수 생성 및 값 설정
-; | `@set score = 5`    | 숫자형 변수
-; | `@if myVar`         | 조건이 true일 때
-; | `@if score > 10`    | 숫자 비교 가능
-; | `@goto:.label`      | 특정 라벨로 이동
-; | `@jump:.label`      | 거의 동일하나 약간 빠름 (스크립트 캐싱상)
+| 명령어               | 설명
+| `@set myVar = true` | 변수 생성 및 값 설정
+| `@set score = 5`    | 숫자형 변수
+| `@if myVar`         | 조건이 true일 때
+| `@if score > 10`    | 숫자 비교 가능
+| `@goto:.label`      | 특정 라벨로 이동
+| `@jump:.label`      | 거의 동일하나 약간 빠름 (스크립트 캐싱상)
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 변수 타입
-; @set name = "Akane"        ; 문자열
-; @set level = 3             ; 숫자 (정수)
-; @set health = 73.5         ; 실수 (소수점 있으면 float)
-; @set hasItem = false       ; 불리언
+변수 타입
+@set name = "Akane"        ; 문자열
+@set level = 3             ; 숫자 (정수)
+@set health = 73.5         ; 실수 (소수점 있으면 float)
+@set hasItem = false       ; 불리언
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 조건에 따라 선택 숨기기 + 자동 분기
-; @set choiceUnlocked = false
+조건에 따라 선택 숨기기 + 자동 분기
+@set choiceUnlocked = false
 
-; A: 당신은 어느 길을 갈 것입니까?
+A: 당신은 어느 길을 갈 것입니까?
 
-; @choice "왼쪽 길" goto:.left
-; @choice "오른쪽 길 (비밀)" if:choiceUnlocked goto:.right
+@choice "왼쪽 길" goto:.left
+@choice "오른쪽 길 (비밀)" if:choiceUnlocked goto:.right
 
-; @stop
+@stop
 
-; # left
-; A: 왼쪽으로 갔습니다.
-; @goto:.ending
+# left
+A: 왼쪽으로 갔습니다.
+@goto:.ending
 
-; # right
-; A: 오른쪽 비밀길로 갔습니다.
-; @goto:.ending
+# right
+A: 오른쪽 비밀길로 갔습니다.
+@goto:.ending
 
-; # ending
-; A: 여행은 끝났습니다.
+# ending
+A: 여행은 끝났습니다.
 
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 변수 사용 방법 {} 로 출력
-; Akane: 안녕하세요, {playerName}님!
+변수 사용 방법 {} 로 출력
+Akane: 안녕하세요, {playerName}님!
 
-; 조건분기 예시1
-; @if hasKey
-; A: 당신은 문을 열 수 있습니다!
-; @else
-; A: 열쇠가 필요합니다.
+조건분기 예시1
+@if hasKey
+A: 당신은 문을 열 수 있습니다!
+@else
+A: 열쇠가 필요합니다.
 
-; 조건분기 예시2
-; @if health >= 100
-; A: 체력이 꽉 찼군요!
+조건분기 예시2
+@if health >= 100
+A: 체력이 꽉 찼군요!
 
-; 특정 변수 초기화
-; @set hasKey = false
-; @set health = 100
+특정 변수 초기화
+@set hasKey = false
+@set health = 100
 
-; 모든 변수 초기화 (테스트용)
-; @resetState
+모든 변수 초기화 (테스트용)
+@resetState
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; ; @set 은 동적으로도 사용됨
+; @set 은 동적으로도 사용됨
 
-; 기본적인 @set 예시 (정적)
-; @set score = 10
-; @set playerName = "Akane"
+기본적인 @set 예시 (정적)
+@set score = 10
+@set playerName = "Akane"
 
-; 동적으로 사용되는 @set 예시 (현재 값에 연산해서 동적으로 계산 가능)
-; @set score = score + 5
-; @set favor_Jisoo = favor_Jisoo - 1
+동적으로 사용되는 @set 예시 (현재 값에 연산해서 동적으로 계산 가능)
+@set score = score + 5
+@set favor_Jisoo = favor_Jisoo - 1
 
-; 문자열 결합 (string concatenation) (변수끼리 문자열을 붙여서 새 변수 생성 가능)
-; @set fullName = playerFirstName + " " + playerLastName
+문자열 결합 (string concatenation) (변수끼리 문자열을 붙여서 새 변수 생성 가능)
+@set fullName = playerFirstName + " " + playerLastName
 
-; 조건문에 쓰일 boolean 설정 (favor_Jisoo가 80 이상이면 true, 아니면 false.)
-; @set isGoodEnd = favor_Jisoo >= 80
+조건문에 쓰일 boolean 설정 (favor_Jisoo가 80 이상이면 true, 아니면 false.)
+@set isGoodEnd = favor_Jisoo >= 80
 
-; 선택지 연동 (분기 + 변수 설정)
-; @choice "선택" @set flag = true
+선택지 연동 (분기 + 변수 설정)
+@choice "선택" @set flag = true
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 조건분기
+조건분기
 
-; ; If `level` value is a number and is greater than 9000, add the choice.
-; @choice "It's over 9000!" if:level>9000
+; If `level` value is a number and is greater than 9000, add the choice.
+@choice "It's over 9000!" if:level>9000
 
-; ; If `dead` variable is a false boolean, execute the print command.
-; @print "I'm still alive." if:!dead
+; If `dead` variable is a false boolean, execute the print command.
+@print "I'm still alive." if:!dead
 
-; ; If `glitch` is a true boolean or random function in 1 to 10 range
-; ; returns 5 or more, execute `@spawn` command.
-; @spawn GlitchCamera if:{ glitch || Random(1, 10) >= 5 }
+; If `glitch` is a true boolean or random function in 1 to 10 range
+; returns 5 or more, execute `@spawn` command.
+@spawn GlitchCamera if:{ glitch || Random(1, 10) >= 5 }
 
-; ; If `score` value is in 7 to 13 range or `lucky` variable
-; ; is a true boolean, load `LuckyEnd` script.
-; @goto LuckyEnd if:{ (score >= 7 && score <= 13) || lucky }
+; If `score` value is in 7 to 13 range or `lucky` variable
+; is a true boolean, load `LuckyEnd` script.
+@goto LuckyEnd if:{ (score >= 7 && score <= 13) || lucky }
 
-; ; You can also use conditionals in the inlined commands.
-; Lorem sit amet. [style bold if:score>=10]Consectetur elit.[style default]
+; You can also use conditionals in the inlined commands.
+Lorem sit amet. [style bold if:score>=10]Consectetur elit.[style default]
 
-; ; When using double quotes inside the expression itself,
-; ; don't forget to escape them.
-; @print {remark} if:remark=="Saying \"Stop the car\" was a mistake."
+; When using double quotes inside the expression itself,
+; don't forget to escape them.
+@print {remark} if:remark=="Saying \"Stop the car\" was a mistake."
 
-; ; ____________________________________________________________
+; ____________________________________________________________
 
-; ! 여기서 부터는 직접 헤딩한 부분들 !
+! 여기서 부터는 직접 헤딩한 부분들 !
 
-; 대사창 종류
-; @printer Dialogue
-; ; 풀스크린일때 @resetText 로 페이지 넘길 수 있음
-; @printer Fullscreen
-; @printer Wide
-; @printer Chat
-; @printer Bubble
+대사창 종류
+@printer Dialogue
+; 풀스크린일때 @resetText 로 페이지 넘길 수 있음
+@printer Fullscreen
+@printer Wide
+@printer Chat
+@printer Bubble
 
-; 배경화면
-; @back eki
+배경화면
+@back eki
 
-; 캐릭터 이름 위치:x,y  <- 왼쪽 아래 0,0 부터 오른쪽 위 100,100
-; @char Akane pos:48,0
+캐릭터 이름 위치:x,y  <- 왼쪽 아래 0,0 부터 오른쪽 위 100,100
+@char Akane pos:48,0
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 글자 문법들 html 문법인듯
+글자 문법들 html 문법인듯
 
-; ;줄 바꿈
-; <br>
+;줄 바꿈
+<br>
 
-; ;사이즈 조절, 색상 코드, 이테릭체, 볼드
-; <size=200%><color=#FFFA8A><i><b>'아테네 학원'</b></i></color></size>
+;사이즈 조절, 색상 코드, 이테릭체, 볼드
+<size=200%><color=#FFFA8A><i><b>'아테네 학원'</b></i></color></size>
 
-; ;이 씹덕 감성 넘치는 글자를 루비라 하네 
-; 전국 <ruby="최강">최고</ruby>의 고등학생이 모이는 이곳이 바로 
+;이 씹덕 감성 넘치는 글자를 루비라 하네 
+전국 <ruby="최강">최고</ruby>의 고등학생이 모이는 이곳이 바로 
 
-; ; 사이즈 조절 이어서
-; <size=200%>공부하라, 지성의 아이들아!
-; <size=300%>토론하라, 지혜의 씨앗들이여!</size>
+; 사이즈 조절 이어서
+<size=200%>공부하라, 지성의 아이들아!
+<size=300%>토론하라, 지혜의 씨앗들이여!</size>
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; ; 캐릭터 대사
-; Akane: hello world!
-; Akane: 쥰내 어렵디
-; Akane: 앙 sasd
+; 캐릭터 대사
+Akane: hello world!
+Akane: 쥰내 어렵디
+Akane: 앙 sasd
 
-; ; 선택지 명령어
-; @choice 선택지1 goto:.test001
-; @choice 선택지2 goto:.test002
-; @stop
+; 선택지 명령어
+@choice 선택지1 goto:.test001
+@choice 선택지2 goto:.test002
+@stop
 
-; ; #은 라벨
-; # test001
-; A: 앙 기모링~ 
-; @goto .test003
+; #은 라벨
+# test001
+A: 앙 기모링~ 
+@goto .test003
 
-; # test002
-; A: 키모이...
-; @goto .test003
+# test002
+A: 키모이...
+@goto .test003
 
-; # test003
-; 제가 이걸 다 누려도 될까요?
+# test003
+제가 이걸 다 누려도 될까요?
 
-; @stop
+@stop
 
-; ;_________________________________25.07.14_________________________________
+;_________________________________25.07.14_________________________________
 
-; 커맨드 뒤에 파라매터 붙는거 공부많이 했다
-; 임시 이름 쓰는거랑
+07.15
+커맨드 뒤에 파라매터 붙는거 공부많이 했다
+임시 이름 쓰는거랑
 
-; @input으로 사용자 입력받아서 이름 설정하는거 까지
+@input으로 사용자 입력받아서 이름 설정하는거 까지
 
-; 젠장 또 해내버렸어
+젠장 또 해내버렸어
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
 
-; 대사뒤에[i]를 하면 줄 바꿈없이 텍스트가 이어서 출력됨
+대사뒤에[i]를 하면 줄 바꿈없이 텍스트가 이어서 출력됨
 
-; 커멘드 뒤에 time과 transition를 붙여서 지연지간과 화면전환 연출을 조정
-; @back academy(morning) time:2 transition:fade
+커멘드 뒤에 time과 transition를 붙여서 지연지간과 화면전환 연출을 조정
+@back academy(morning) time:2 transition:fade
 
-; 두개 같음
-; @back academy(morning).Crossfade time:1.5 wait!
-; @back academy(morning) transition:Crossfade time:1.5 wait!
+두개 같음
+@back academy(morning).Crossfade time:1.5 wait!
+@back academy(morning) transition:Crossfade time:1.5 wait!
 
-; trans 명령어만 사용하는 예
-; @trans DropFade time:3
-;     @hide Felix
-;     @char Jenna
-;     @back RainyDay
-;     @sun power:0
-;     @rain power:1
-; Jenna: When will the damn rain stop?
+trans 명령어만 사용하는 예
+@trans DropFade time:3
+    @hide Felix
+    @char Jenna
+    @back RainyDay
+    @sun power:0
+    @rain power:1
+Jenna: When will the damn rain stop?
 
 
-; 오오 이펙트 커맨드로 기본 지원이라니 끼요옷
-; @rain power:1
-; @sun power:1
+오오 이펙트 커맨드로 기본 지원이라니 끼요옷
+@rain power:1
+@sun power:1
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 일회성으로 이름(Name Label)을 커스터마이즈
+일회성으로 이름(Name Label)을 커스터마이즈
 
-; 이름 일시적으로 "Someone"으로 출력
-; @print "무언가 수상하다..." author:Kohaku as:"???"
+이름 일시적으로 "Someone"으로 출력
+@print "무언가 수상하다..." author:Kohaku as:"???"
 
-; 여러 캐릭터의 대사, 이름은 "All Together"
-; @print "우리가 모두 함께 말하는 거야!" author:* as:"전원"
+여러 캐릭터의 대사, 이름은 "All Together"
+@print "우리가 모두 함께 말하는 거야!" author:* as:"전원"
 
-; 두 명의 캐릭터가 함께 말하는 것처럼 표시
-; @print "동시에 말했어?" author:Kohaku,Yuko as:"코하쿠와 유코"
+두 명의 캐릭터가 함께 말하는 것처럼 표시
+@print "동시에 말했어?" author:Kohaku,Yuko as:"코하쿠와 유코"
 
-; !!!! @print 문장 뒤에는 wait:true 설정을 해야 스킵이 안됨 
-; @print "잠깐-거기." author:Ar as:??? wait!
+!!!! @print 문장 뒤에는 wait:true 설정을 해야 스킵이 안됨 
+@print "잠깐-거기." author:Ar as:??? wait!
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 캐릭터 띄우는거 추가 파라매터
-; @char Ar.akane_angry look:left pos:50,0 scale:1.5 time:1.2 easing:InOutSine wait!
+캐릭터 띄우는거 추가 파라매터
+@char Ar.akane_angry look:left pos:50,0 scale:1.5 time:1.2 easing:InOutSine wait!
 
-; 이미 있는 캐릭터 더 크게할때
-; @char Yuna scale:0.6 time:0.5
+이미 있는 캐릭터 더 크게할때
+@char Yuna scale:0.6 time:0.5
 
 
-; 캐릭터 없애는 방법
-; @hide Yuna
+캐릭터 없애는 방법
+@hide Yuna
 
-; 모든 캐릭터 제거
-; @hide *
+모든 캐릭터 제거
+@hide *
 
-; 캐릭터 제거에 시간 옵션 (wait도 되겠지? easing은 안되는듯?)
-; @hide Yuna time:1
+캐릭터 제거에 시간 옵션 (wait도 되겠지? easing은 안되는듯?)
+@hide Yuna time:1
 
 
-; char 명령어
-; | 파라미터              | 타입    | 설명 |
-; | ----------------- | ----- | -------------------------------------------------------------------------------------- |
-; | `idAndAppearance` | 문자열   | 캐릭터 ID와 함께 등장시킬 외형(appearance) 또는 포즈(pose) 지정. 외형이 없으면 기본(Default) 또는 랜덤 적용
-; | `look`            | 문자열   | 캐릭터 바라보는 방향 지정: `left`, `right`, `center`
-; | `avatar`          | 문자열   | 캐릭터 아바타 텍스처 경로 또는 이름. `none`으로 지정하면 아바타 해제
-; | `pos`             | 실수 배열 | 씬 내 상대 위치 지정 (0,0 왼쪽 아래 / 50,50 중앙 / 100,100 오른쪽 위). 3번째 값으로 깊이(z축) 조절 가능 (ortho 모드에서)
-; | `id`              | 문자열   | 제어할 캐릭터 ID. `*`는 화면에 보이는 모든 캐릭터 대상
-; | `appearance`      | 문자열   | 설정할 외형 이름
-; | `pose`            | 문자열   | 설정할 포즈 이름
-; | `transition`      | 문자열   | 전환 효과 종류 지정 (기본값: crossfade)
-; | `params`          | 실수 배열 | 전환 효과에 추가로 전달할 파라미터들
-; | `dissolve`        | 문자열   | 커스텀 디졸브 텍스처 경로 (Resources 폴더 기준). transition이 Custom일 때만 적용
-; | `visible`         | 불리언   | 캐릭터 보임 여부 설정 (true/false)
-; | `position`        | 실수 배열 | 월드 좌표 기준 위치 설정 (pos와 다름). z축 포함 가능
-; | `rotation`        | 실수 배열 | 회전값 설정 (x,y,z 축)
-; | `scale`           | 실수 배열 | 크기 설정 (x,y,z)
-; | `tint`            | 문자열   | 색상 틴트 적용 (예: `#FF0000` 또는 `red`)
+char 명령어
+| 파라미터              | 타입    | 설명 |
+| ----------------- | ----- | -------------------------------------------------------------------------------------- |
+| `idAndAppearance` | 문자열   | 캐릭터 ID와 함께 등장시킬 외형(appearance) 또는 포즈(pose) 지정. 외형이 없으면 기본(Default) 또는 랜덤 적용
+| `look`            | 문자열   | 캐릭터 바라보는 방향 지정: `left`, `right`, `center`
+| `avatar`          | 문자열   | 캐릭터 아바타 텍스처 경로 또는 이름. `none`으로 지정하면 아바타 해제
+| `pos`             | 실수 배열 | 씬 내 상대 위치 지정 (0,0 왼쪽 아래 / 50,50 중앙 / 100,100 오른쪽 위). 3번째 값으로 깊이(z축) 조절 가능 (ortho 모드에서)
+| `id`              | 문자열   | 제어할 캐릭터 ID. `*`는 화면에 보이는 모든 캐릭터 대상
+| `appearance`      | 문자열   | 설정할 외형 이름
+| `pose`            | 문자열   | 설정할 포즈 이름
+| `transition`      | 문자열   | 전환 효과 종류 지정 (기본값: crossfade)
+| `params`          | 실수 배열 | 전환 효과에 추가로 전달할 파라미터들
+| `dissolve`        | 문자열   | 커스텀 디졸브 텍스처 경로 (Resources 폴더 기준). transition이 Custom일 때만 적용
+| `visible`         | 불리언   | 캐릭터 보임 여부 설정 (true/false)
+| `position`        | 실수 배열 | 월드 좌표 기준 위치 설정 (pos와 다름). z축 포함 가능
+| `rotation`        | 실수 배열 | 회전값 설정 (x,y,z 축)
+| `scale`           | 실수 배열 | 크기 설정 (x,y,z)
+| `tint`            | 문자열   | 색상 틴트 적용 (예: `#FF0000` 또는 `red`)
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 사용자 입력 받아서 사용하는법
+사용자 입력 받아서 사용하는법
 
-; @input PlayerName summary:"당신의 이름은?"
-; @stop
+@input PlayerName summary:"당신의 이름은?"
+@stop
 
-; P: 저는 {PlayerName}입니다. 잘 부탁드려요.
-; 거만하면서도 묘하게 예절을 알긴 아는 당돌한 신입생이다.
+P: 저는 {PlayerName}입니다. 잘 부탁드려요.
+거만하면서도 묘하게 예절을 알긴 아는 당돌한 신입생이다.
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; @trans Crossfade time:1.0
-;     @printer Dialogue
-;     @back room
+@trans Crossfade time:1.0
+    @printer Dialogue
+    @back room
 
-; 이거랑
+이거랑
 
-; @back room.Crossfade time:1
-; @printer Dialogue wait!
+@back room.Crossfade time:1
+@printer Dialogue wait!
 
-; 둘다 해봤는데 위에거가 더 자연스러운 듯
+둘다 해봤는데 위에거가 더 자연스러운 듯
 
-; ; ---------------------------------------------------------
+; ---------------------------------------------------------
 
-; 캐릭터 제거 wait:false는 알아서 판단
-; @hide Ar time:1 !wait
+캐릭터 제거 wait:false는 알아서 판단
+@hide Ar time:1 !wait
 
 
-; ;_________________________________25.07.15_________________________________
+;_________________________________25.07.15_________________________________
+
+07.16
+아 샤도바 1판만큼 쉬고싶다~
+
+; ---------------------------------------------------------
+
+디버그 콘솔 ~로 열어서 @goto .4 럼 쓰면 되는데 P 이름을 설정 안하고 넘겼을때 이걸 어떻게 사용?
+저장했을때 남아있어?
+-> 이거 중간에 이름쓰는건 @input PlayerName으로 가능하네
+
+!!!!!!!!!!!!   찾아야하는거
+; 테스트 게임 데이터 초기화, 암전, 키입력 대기
+
+""쓰고 싶은데 명령어 일부로 인식되서 문제라면 /"/" <- 이거 일껄 사용하면 ㅇㅋ
+
+대기 시간 명령어
+@wait 1.5
+
+
+암전이 커맨드로는 없나? 일단 똑같은 기능인지 아니면 원래 hide 시키는건지 구현은 아래처럼 가능함
+@hideAll
+@hideAll time:0.5 wait!
+@wait 3
+이 밑에 @printer Dia~ 처럼 하면 될듯
+
+
+pos 수치 x,y,z -> z는 여기서 레이어인듯?
+@char actor pos:50,0,-1
+@back room pos:50,50,1
+이러면 배경이 캐릭터를 가리겠지 근데 대사창은 얘가 무조건 앞인듯
+이 z 축의 수치가 얼마까지 있는지는 확인 필요
