@@ -566,6 +566,162 @@ https://naninovel.com/guide/backgrounds
 
 ;_________________________________25.07.22_________________________________
 
+07.23
+이제부터 일단 공부는 잠깐 멈추고 기본 기능 (캐릭터, 대사) 이런걸로 일단 프로토 타입만 쭉 만들고
+특수 효과는 끝나고 한번에 검토할 때 하자
+하나씩 다 하려면 시간이 안됨
+
+
+07.25
+아니 ctrl+H 이거를 지금 알아가지고...
+이런 칙쇼!!!!!!!!
+이제라도 안게 어디냐
+
+; ---------------------------------------------------------
+
+@back
+쓸때 MainBackGround 말고 다른 리스트 쓸려면 뒤에 id 붙여야됨
+@back CG01 id:CG
+
+; ---------------------------------------------------------
+
+07.26
+
+선택지 + 변수조작 
+
+; You can also set custom variables based on choices.
+@choice "I'm humble, one is enough..." set:score++
+@choice "Two, please." set:score=score+2
+@choice "I'll take the entire stock!" set:karma--;score=999
+
+
+선택지 비활성화
+; Make choice disabled/locked when 'score' variable is below 10.
+@choice "Secret option" lock:{score<10}
+
+; ---------------------------------------------------------
+
+이동에서 사용할만한 명령어들 command에서 확인
+사라졌다 다시 등장도 좋지만 이것들도 잘 섞어서
+
+@animate Kohaku posX:50,0,85 time:1,0.5,3 wait!
+
+@arrange Ar.15,Felix.50,Mia.85
+
+; ---------------------------------------------------------
+
+와 배경 스크립트 바뀔때 크로스페이드되는거 이걸로 해결
+
+@back class_room(T).Crossfade visible:false !wait
+@back class_room(T).Crossfade time:1.5 wait!
+
+; ---------------------------------------------------------
+
+화면 클릭 대기 이걸로 해결!! 
+젠장 또 해네버렸어 
+
+@print "" !wait
+[i]
+
+; ---------------------------------------------------------
+
+@blur
+
+@bokeh
+
+카메라 연출!!
+@camera
+
+공통 연출 처리 + 본문으로 복귀에는 @gosub / @goto 대체
+@gosub
+@return
+
+@if
+@else
+
+@input
+
+@random
+
+@shake
+
+@unlock
+
+
+; ---------------------------------------------------------
+
+화면에 글씨쓰기랑 암전 왜 없냐
+
+그리고 이미지 띄우기랑
+
+아니 시밤바 선택지 위치조정 어딨어
+
+; ---------------------------------------------------------
+
+07.27
+젠장 NotSpeaking 또 해냈다 이 미친 투명도 싯밤
+
+
+07.28
+뭐야 이동이 텔포가 아니였잖아
+
+@print "" !wait
+@hide So time:1 wait!
+@char Ar.normal look:Right pos:30,-80 scale:1 time:1 transition:Crossfade easing:EaseInOutSine !wait
+@char Pl.normal look:Left pos:70,-73 scale:1 time:1 transition:Crossfade easing:EaseInOutSine wait!
+
+07.29
+드디어 기본 작업 다했다
+와 분량 
+또 디테일 챙기고 콜로키움 만들고 육성 시스템 짜고...
+
+
+
+07.30
+선택지 중첩이 가능하다는걸 알고 계신가요?
+
+A: 선배.
+B: 음?
+
+@await
+    @print "" !wait
+    @hidePrinter
+    @blur time:0.2
+    @blur B time:0.2
+
+@choice "내일도 같이 공부해요."
+    @await
+        @blur power:0 time:0.2
+        @blur B power:0 time:0.2
+    B: 내일뿐만 아니라 방학 내내도 좋아.
+@choice "다음에 또 같이 놀러 나와요."
+    @await
+        @blur power:0 time:0.2
+        @blur B power:0 time:0.2
+    B: 음, 언제든 그대가 원한다면 말이지.
+@stop
+
+; # 20-A3-1
+; @await
+;     @blur power:0 time:0.2
+;     @blur B power:0 time:0.2
+;     @printer Dialogue
+; B: 내일뿐만 아니라 방학 내내도 좋아.
+; @goto .20-A3-3
+
+; # 20-A3-2
+; @await
+;     @blur power:0 time:0.2
+;     @blur B power:0 time:0.2
+;     @printer Dialogue
+; B: 음, 언제든 그대가 원한다면 말이지.
+; @goto .20-A3-3
+
+; # 20-A3-3
+B: 그럼 정말로 이만.
+
+
+이런식
 
 
 
@@ -573,13 +729,143 @@ https://naninovel.com/guide/backgrounds
 
 
 
+08.02
+2일 동안 잘 놀았지?
+그럼 일해라 일
+
+
+
+아니 이미지 넣는거
+@spawn
+으로 하는거라고? 
+젠장 또 해내버렸어
+
+
+
+오도랑 이미지 싱글,멀티, 폴리곤을 알아버렸다
+
+
+
+
+08.03
+
+
+@trans Crossfade time:1
+    @random weight:0.4,0.3,0.3
+        @group
+            @back cafe(evening)
+        @group
+            @back cafe(dusk)
+        @group
+            @back cafe(noon)
+@wait 0.35
+
+
+@trans Crossfade time:1
+    @random weight:0.4,0.3,0.3
+        @back cafe(evening)
+        @back cafe(dusk)
+        @back cafe(noon)
+@wait 0.35
+
+
+이게 아니라
+
+@random
+    @trans Crossfade time:1
+        @back cafe(evening)
+    @trans Crossfade time:1
+        @back cafe(dusk)
+    @trans Crossfade time:1
+        @back cafe(noon)
+@wait 0.35
+
+이건가?
+
+
+
+랜덤 예제 맛있는거
+; Add a choice to shake camera, tint Kohaku actor or play 'SoundX' SFX,
+; all with 33% probability. However, SFX playback will only be considered
+; in case score is above 10.
+@random
+    @choice "Shake camera!"
+        You've asked for it!
+        @shake Camera
+    @group
+        Going to tint Kohaku!
+        @char Kohaku tint:red
+    @sfx SoundX if:score>10
+@stop
+
+
+
+
+글로벌 변수 g_ 붙이기
+; Use global variable ('g_' prefix) to persist the value across sessions.
+; The variable will remain true even when the game is restarted.
+@set g_Ending001Reached=true
 
 
 
 
 
-____________________________________
 
-진짜 꿀팁 대방출이다
-이게 꿀통이지
-도움되셨다면 직접 제작한 미연시-비주얼노벨 출시하면 선물 좀 해주세요 야미~
+조건문 두개 차이점 파악했지?
+
+@if (tukare>0)
+    @if (tukare<10)
+        @spawn drink01 pos:30,70 scale:1 wait!
+    @else if:(tukare<20)
+        @spawn drink02 pos:30,70 scale:1 wait!
+    @else if:(tukare<30)
+        @spawn drink03 pos:30,70 scale:1 wait!
+    @else if:(tukare<40)
+        @spawn drink04 pos:30,70 scale:1 wait!
+    @else if:(tukare<50)
+        @spawn drink05 pos:30,70 scale:1 wait!
+@endif
+
+
+@if (tukare<10)
+    @spawn drink01 pos:30,70 scale:1 wait!
+@else if:(tukare<20)
+    @spawn drink01 pos:30,70 scale:1 wait!
+@else if:(tukare<30)
+    @spawn drink01 pos:30,70 scale:1 wait!
+@else
+    @spawn drink01 pos:30,70 scale:1 wait!
+@endif
+
+
+
+
+이거 두개는 어떤데?
+@if {(tukare>=10 && tukare<20)}
+    @spawn drink01 pos:30,70 scale:1 wait!
+
+@spawn drink01 if:{(tukare >= 10 && tukare < 20)} pos:30,70 scale:1 wait!
+
+
+
+
+
+시이이이이바루
+기본 커스텀 선택지 누가 투명도 50%로 해놨냐
+
+set native size 칙쇼쇼쇼숏쇼쇼쇼
+
+
+
+
+자, 슨배님들 잘들으랑께 커스텀 초이스 이미지 버튼 만드는 법이다
+이거 안보고 하면 개빡침 ---
+1. 초이스 버튼을 생성 (이미지 넣기)
+2. 초이스 핸들러 버튼 에리어 (1번 프리팹 넣기)
+3. 그리고 1번에서 프리팹 캔버스 크기 조절하고 하이라이트 색상에서 투명도 조절해
+4. 아 이거 까먹을뻔 캔버스 크기를 조절하는게 아니고 set native size <- 별표 치셈
+5. 근데
+@choice handler:NewButton pos:50,50 goto:main01
+@choice handler:ButtonArea button:button01 pos:50,50 goto:main01
+위에 거로 만들었는데
+아래는 어떻게함? ㅋㅋ
